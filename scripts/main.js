@@ -7,7 +7,8 @@
 //개인톡 : https://open.kakao.com/o/sOcBMAQc
 //채팅방 : https://open.kakao.com/o/gYcpPn6d
 */ 
-import { world, system } from "mojang-minecraft";
+import { world, system } from "@minecraft/server"
+system.events.beforeWatchdogTerminate.subscribe(e => e.cancel = true)
 let chat = new Map()
 
 /* 채팅 설정 chat set */
@@ -15,12 +16,6 @@ let length_limit = 50 //채팅 길이 제한 Chat length limit
 let speed_limit = 2 //채팅 빠르기 제한 Chat speed limit (단위:초 unit:second)
 /* --------------------- */
 speed_limit = speed_limit*20
-
-/*와치독 캔슬*/
-system.events.beforeWatchdogTerminate.subscribe(data => {
-    data.cancel = true
-})
-/* --------------------- */
 
 world.events.beforeChat.subscribe(data => {
     data.cancel = true
